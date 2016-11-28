@@ -1,0 +1,11 @@
+{
+  "name": "hurricane_alerts",
+  "version": "1.0.0",
+  "description": "Hurricane Alert Message setup and configuration",
+  "main": "createMessage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
