@@ -1,10 +1,8 @@
-from __future__ import print_function
-
 import boto3
 import json
+sns = boto3.client('sns')
 
 print('Loading function')
-
 
 def respond(err, res=None):
     return {
@@ -15,30 +13,24 @@ def respond(err, res=None):
         },
     }
 
-
 def lambda_handler(event, context):
-    '''Demonstrates a simple HTTP endpoint using API Gateway. You have full
-    access to the request and response payload, including headers and
-    status code.
-
-    To scan a DynamoDB table, make a GET request with the TableName as a
-    query string parameter. To put, update, or delete an item, make a POST,
-    PUT, or DELETE request respectively, passing in the payload to the
-    DynamoDB API as a JSON body.
-    '''
-    #print("Received event: " + json.dumps(event, indent=2))
-
-    operations = {
-        #'DELETE': lambda sns, x: sns.delete_item(**x),
-        'GET': lambda sns, x: sns.publish(**x),
-        'POST': lambda sns, x: sns.publish(**x),
-        #'PUT': lambda sns, x: sns.update_item(**x),
-    }
-
-    operation = event['httpMethod']
-    if operation in operations:
-        payload = event['queryStringParameters'] if operation == 'GET' else json.loads(event['body'])
-        sns = boto3.client('sns')
-        return respond(None, operations[operation](sns, payload))
-    else:
-        return respond(ValueError('Unsupported method "{}"'.format(operation)))
+    #sns = boto3.client('sns')
+    number = '+17322667762'
+    print("Received event: " + json.dumps(event, indent=2))
+    try:
+        body = json.loads(event['body'])
+        body = body['Key1']
+        print body
+        response = sns.publish(PhoneNumber = number, Message=body)
+        print response
+        #statusCode = '200'
+        #headers = response['ResponseMetadata']['HTTPHeaders']
+        #apigResponse = {'statusCode': statusCode, 'body': json.dumps(response), 'headers': headers}
+        #print event
+        #print 'body ' + body
+        #return apigResponse #['ResponseMetadata'] #['HTTPHeaders']['content-type']
+        
+        return respond('', body)
+    except Exception as e:
+        print e
+        raise e
