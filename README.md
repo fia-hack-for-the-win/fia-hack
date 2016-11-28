@@ -10,5 +10,6 @@ Team:
 <li>Vino
 <li>Dragos
 <li>Brian
-</ul>Girish
+<li>Girish
+</ul>
 </p>
