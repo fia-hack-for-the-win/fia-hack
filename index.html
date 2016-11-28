@@ -32,14 +32,16 @@
       <form action="." method="post" class="hform">
         <fieldset>
           <legend>Enter details</legend>
-          <p><label>Name</label>
-            <input type="text" name="name" value="" id="name"></p>
-	  <p><label>Phone</label>
-            <input type="text" name="phone" value="" id="phone"></p>
+          <p><label>Name *</label>
+            <input type="text" name="name" value="" id="name" title="First and Last Name"></p>
+	        <p><label>Phone *</label>
+            <input type="text" name="phone" value="" id="phone" title="Phone Number"></p>
+          <p><label>Zip Code *</label>
+            <input type="text" name="zip_code" value="" id="zip_code" pattern="^\d{5}" title="Zip Code"></p>
           <p><label>Twitter</label>
-            <input type="text" name="address" value="" id="twitter"></p>
+            <input type="text" name="twitter" value="" id="twitter" title="Twitter Handle"></p>
           <p><label>Email</label>
-            <input type="text" name="city" value="" id="city"></p>
+            <input type="text" name="email" value="" id="email" title="Email"></p>
           <p><label>Comment</label>
             <textarea name="comment" rows="8" cols="40"></textarea></p>
           <p class="checkbox"><input type="checkbox" name="remember" value="" id="remember"> <label>Remember</label></p>
@@ -77,6 +79,12 @@
     <p class="quiet"><small>Creative Commons License</small></p>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $("name").removeClass('success').removeClass('success');
+  }
+</script>
 
 </body>
 </html>
