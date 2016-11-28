@@ -3,10 +3,12 @@ AWS Hackathon for FIA
 
 Team:
 
-James
-Avi
-Vino
-Dragos
-Brian
-Girish
-
+<p>
+<ul>
+<li>James
+<li>Avi
+<li>Vino
+<li>Dragos
+<li>Brian
+</ul>Girish
+</p>
