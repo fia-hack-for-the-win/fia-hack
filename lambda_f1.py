@@ -15,21 +15,18 @@ def respond(err, res=None):
 
 def lambda_handler(event, context):
     #sns = boto3.client('sns')
-    number = '+17322667762'
+    
     print("Received event: " + json.dumps(event, indent=2))
     try:
         body = json.loads(event['body'])
-        body = body['Key1']
+        msg = body['Key1']
+        try:
+            number = '+1' + body['Key2']
+        except:
+            number = '+17322667762'
         print body
-        response = sns.publish(PhoneNumber = number, Message=body)
+        response = sns.publish(PhoneNumber = number, Message=msg)
         print response
-        #statusCode = '200'
-        #headers = response['ResponseMetadata']['HTTPHeaders']
-        #apigResponse = {'statusCode': statusCode, 'body': json.dumps(response), 'headers': headers}
-        #print event
-        #print 'body ' + body
-        #return apigResponse #['ResponseMetadata'] #['HTTPHeaders']['content-type']
-        
         return respond('', body)
     except Exception as e:
         print e
