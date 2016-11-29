@@ -30,7 +30,6 @@ def respond(err, res=None):
         },
     }
 
-
 def lambda_handler(event, context):
     """
     This function inserts content from mysql RDS instance
@@ -39,9 +38,13 @@ def lambda_handler(event, context):
     params = json.loads(event['body'])
     name = params['name']
     phone = params['phone']
+    zip_code = params['zip_code']
+    twitter = params['twitter']
+    email = params['email']
+    comment = params['comment']
 
     with conn.cursor() as cur:
-        cur.execute('insert into user_details (name, phone_no) values("Brian", "123")')
+        cur.execute('insert into user_details (name, phone_no, zipcode, Twitter, Email, Comments) values("{0}", "{1}", "{2}", "{3}", "{4}", "{5}")'.format(name, phone, zip_code, twitter, email, comment))
         conn.commit()
 
-    return respond(None, "Added the data to the RDS MySQL table")
+    return respond(None, 'User successfully added')

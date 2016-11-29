@@ -21,7 +21,7 @@
 #body { padding: 20px; }
 
 /* INTRODUCTION */
-#introduction { float: left; width: 480px; margin-right: 130px; }
+#introduction { width: 480px; margin: 0 auto; }
 
 /* RESOURCES */
 #resources { float: left; margin-top: 10px; width: 230px; }

@@ -4,37 +4,27 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>FIA Hurricane Alert System</title>
+	<title>FIA Alert Notification System</title>
 	<meta name="author" content="">
-  <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" charset="utf-8">
-  <!--[if lte IE 6]><link rel="stylesheet" href="stylesheets/lib/ie6.css" type="text/css" media="screen" charset="utf-8"><![endif]-->
+    <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" charset="utf-8">
+    <!--[if lte IE 6]><link rel="stylesheet" href="stylesheets/lib/ie6.css" type="text/css" media="screen" charset="utf-8"><![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
 
 <div id="page">
   <div id="header">
-    <h1>FIA Hurricane Alert System</h1>
-  </div>
-  
-  <div id="navigation">
-    <ul class="tabs">
-      <li><a href="#">Lorem</a></li>
-      <li><a href="#">Ipsum</a></li>
-      <li><a href="#">Dolor</a></li>
-      <li><a href="#">Consectetur</a></li>
-      <li><a href="#">Eiusmod</a></li>
-    </ul>
+    <h1>FIA Alert Notification System</h1>
   </div>
   
   <div id="body" class="wrapper">
     <div id="introduction">
-      <h2>FIA Hurricane Alert System</h2>
-      <form action="https://k0xdh9q507.execute-api.us-west-2.amazonaws.com/dev/insertUserData" method="post" class="hform">
+      <form action="" class="hform">
         <fieldset>
           <legend>Define Alert Profile</legend>
           <p><label>Name *</label>
             <input type="text" name="name" value="" id="name" title="First and Last Name"></p>
-	        <p><label>Phone *</label>
+          <p><label>Phone *</label>
             <input type="text" name="phone" value="" id="phone" title="Phone Number"></p>
           <p><label>Zip Code *</label>
             <input type="text" name="zip_code" value="" id="zip_code" pattern="^\d{5}" title="Zip Code"></p>
@@ -43,47 +33,60 @@
           <p><label>Email</label>
             <input type="text" name="email" value="" id="email" title="Email"></p>
           <p><label>Comment</label>
-            <textarea name="comment" rows="8" cols="40"></textarea></p>
-          <p class="checkbox"><input type="checkbox" name="remember" value="" id="remember"> <label>Remember</label></p>
+            <textarea name="comment" rows="8" cols="40" id="comment"></textarea></p>
         </fieldset>
         
         <p><input type="submit" name="submit" value="Submit" class="button"></p>
       </form>
-      
+
+      <div><h3 class="responseText"></h3></div>
     </div>
-    <div id="resources">
-      <h3>Commodo consequat</h3>
-      <ul>
-        <li><a href="#">Consectetur adipisicing elit</a> sed do eiusmod tempor incididunt ut labore.</li>
-        <li><a href="#">Quis nostrud exercitation</a> ullamco laboris nisi ut aliquip</li>
-      </ul>
-      
-      <ul>
-        <li>Lorem ipsum dolor sit amet</li>
-        <li>Consectetur adipisicing elit</li>
-        <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
-        <li>Ut enim ad minim veniam</li>
-      </ul>
-    </div>
+
   </div>
   
   <div id="footer">
-    <ul class="tabs">
-      <li><a href="#">Lorem</a></li>
-      <li><a href="#">Ipsum</a></li>
-      <li><a href="#">Dolor</a></li>
-      <li><a href="#">Consectetur</a></li>
-      <li><a href="#">Eiusmod</a></li>
-    </ul>
-    
     <p class="quiet"><small>Creative Commons License</small></p>
   </div>
 </div>
 
 <script>
   $(document).ready(function () {
-    $("name").removeClass('success').removeClass('success');
-  }
+    $("form").submit(function(event){
+      event.preventDefault();
+      var data = {
+        name: $("#name").val(),
+        phone: $("#phone").val(),
+        email: $("#email").val(),
+        twitter: $("#twitter").val(),
+        zip_code: $("#zip_code").val(),
+        comment: $("#comment").val()
+      }
+      console.log(JSON.stringify(data));
+      var request = $.ajax({
+        url: "https://k0xdh9q507.execute-api.us-west-2.amazonaws.com/dev/insertUserData",
+        dataType: "json",
+        method: "POST",
+        crossDomain: true,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function (response) {
+          //on success, clear the form values
+          $("#name").val("");
+          $("#phone").val("");
+          $("#email").val("");
+          $("#twitter").val("");
+          $("#zip_code").val("");
+          $("#comment").val("");
+
+          $(".responseText").text(response);
+        },
+        error: function (xhr, status) {
+          console.log(xhr);
+          alert("error");
+        }
+      });
+    });
+  });
 </script>
 
 </body>
